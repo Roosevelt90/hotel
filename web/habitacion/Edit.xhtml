@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditHabitacionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditHabitacionLabel_idHabitacion}" for="idHabitacion" />
+                    <h:inputText id="idHabitacion" value="#{habitacionController.selected.idHabitacion}" title="#{bundle.EditHabitacionTitle_idHabitacion}" required="true" requiredMessage="#{bundle.EditHabitacionRequiredMessage_idHabitacion}"/>
+                    <h:outputLabel value="#{bundle.EditHabitacionLabel_numero}" for="numero" />
+                    <h:inputText id="numero" value="#{habitacionController.selected.numero}" title="#{bundle.EditHabitacionTitle_numero}" required="true" requiredMessage="#{bundle.EditHabitacionRequiredMessage_numero}"/>
+                    <h:outputLabel value="#{bundle.EditHabitacionLabel_disponible}" for="disponible" />
+                    <h:inputText id="disponible" value="#{habitacionController.selected.disponible}" title="#{bundle.EditHabitacionTitle_disponible}" required="true" requiredMessage="#{bundle.EditHabitacionRequiredMessage_disponible}"/>
+                    <h:outputLabel value="#{bundle.EditHabitacionLabel_limpia}" for="limpia" />
+                    <h:inputText id="limpia" value="#{habitacionController.selected.limpia}" title="#{bundle.EditHabitacionTitle_limpia}" required="true" requiredMessage="#{bundle.EditHabitacionRequiredMessage_limpia}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{habitacionController.update}" value="#{bundle.EditHabitacionSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditHabitacionViewLink}"/>
+                <br />
+                <h:commandLink action="#{habitacionController.prepareList}" value="#{bundle.EditHabitacionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditHabitacionIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
