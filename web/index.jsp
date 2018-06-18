@@ -72,7 +72,7 @@
                                 <!-- Button -->
 
                                 <div class="col-sm-12 controls">
-                                    <input type="submit" name="btnEnviar" class="btn btn-success" value="Enviar">
+                                    <input type="submit" name="btnEnviar" class="btn btn-success" value="Ingresar">
                                     <a href="#" onClick="$('#loginbox').hide(); $('#signupbox').show()" class="btn btn-primary">
                                         Registrarse
                                     </a>                                    
