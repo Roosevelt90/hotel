@@ -7,6 +7,7 @@ package model;
 
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import java.io.Serializable;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,5 +42,22 @@ public class Reservaciones extends ModelBase implements Serializable {
                 + "WHERE `id_reservacion` = " + id;
         pst = this.conexion.prepareStatement(sql);
         pst.execute();
+    }
+
+    public String reservar(String id_habitacion, String email, String fechaInicial, String fechaFin) {
+        return email;
+//        try {
+//                    Array responseData = null;
+//        PreparedStatement pst;
+//        String sql = "INSERT INTO `reservacion` (`id_habitacion`, `id_usuario`, `fecha_hora_inicial`, `fecha_hora_fin`, `confirmada`, pin, valor) "
+//                + " VALUES (" + id_habitacion + ", '" + 1 + "', '" + fechaInicial + "', '" + fechaFin + "', 0, 1, 1);";
+//
+//        pst = this.conexion.prepareStatement(sql);
+//        pst.execute();
+//        } catch (Exception e) {
+//            return e.getMessage();
+//        }
+//        return "bien";
+//        return responseData;
     }
 }

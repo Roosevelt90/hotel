@@ -60,6 +60,7 @@
         </div>  
 
         <%            Habitacion habi = new Habitacion();
+                                    HttpSession sesion = request.getSession();
 
             if (request.getParameter("btnConsultar") != null) {
                 String fechaInicial = request.getParameter("fechaInicial");
@@ -87,12 +88,15 @@
                             <td><%= fechaFin%></td>
                             <td>
                                 <form id="loginform"  role="form" method="post">
-                                    <input type="submit" name="btnConfirmar" class="btn btn-success" value="Enviar">
+                                    <input type="submit" name="btnReservar" class="btn btn-success" value="Reservar">
                                 </form>
                                 <%
-                                    if (request.getParameter("btnConfirmar") != null) {
-                                        reser.confirmar(id);
-                                        response.sendRedirect("homeAdministrador.jsp");
+                                    
+                                    if (request.getParameter("btnReservar") != null) {
+                                        String email = session.getAttribute("user").toString();
+                                        String p = reser.reservar(id, email, fechaInicial, fechaFin );
+                                        out.write(p);
+//                                        response.sendRedirect("homeUsuario.jsp");
                                     }
                                 %>
                             </td>
