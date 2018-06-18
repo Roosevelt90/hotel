@@ -4,6 +4,8 @@
     Author     : Usuario1
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="model.Habitacion"%>
 <%@page import="model.Reservaciones"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -36,19 +38,19 @@
 
 
                             %>
-
                             <div style="margin-bottom: 25px" class="input-group">
-                                <input type="email" name="email" size="15" id="email" class="form-control" placeholder="Fecha de ingreso">
+                                <span class="input-group-addon"></span>
+                                <input type="date" name="fechaInicial" size="15" id="fechaInicial" class="form-control" placeholder="Fecha de ingreso">
                             </div>
 
                             <div style="margin-bottom: 25px" class="input-group">
-                                <input type="password" name="pass" size="15" id="pass" class="form-control"  placeholder="Fecha de salida">                                
+                                <span class="input-group-addon"></span>
+                                <input type="date" name="fechaFin" size="15" id="fechaFin" class="form-control"  placeholder="Fecha de salida">                                
                             </div>
                             <div style="margin-top:10px" class="form-group">
-                                <!-- Button -->
-
                                 <div class="col-sm-12 controls">
                                     <input type="submit" name="btnConsultar" class="btn btn-success" value="Consultar">
+                                    <input type="reset" name="btnConsultar" class="btn btn-success" value="Limpiar">
                                 </div>
                             </div>
                         </form> 
@@ -56,6 +58,51 @@
                 </div>  
             </div>
         </div>  
-    </div>
-</body>
+
+        <%            Habitacion habi = new Habitacion();
+
+            if (request.getParameter("btnConsultar") != null) {
+                String fechaInicial = request.getParameter("fechaInicial");
+                String fechaFin = request.getParameter("fechaFin");
+                String r;
+                ResultSet rs =  habi.getHabitacionesDisponibles(fechaInicial, fechaFin);
+        %>
+        
+        <div class="container">    
+            <div  style="margin-top:30px;" class="mainbox col-md-8 text-center col-md-offset-2">                    
+                <table class="table table-bordered table-striped" >
+                    <thead>
+                        <tr><th>Numero de habitacion</th><th>Valor por dia</th>
+                            <th>Fecha de ingreso</th><th>Fecha de salida</th><th>Acciones</th></tr>
+                    </thead>
+                    <tbody>
+                        <% while (rs.next()) {
+                                String id = rs.getString(1);
+                                String numero = rs.getString(2);
+                                String valorDia = rs.getString(3);
+                        %>
+                        <tr><td><%= numero%></td>
+                            <td><%= valorDia%></td>
+                            <td><%= fechaInicial%></td>
+                            <td><%= fechaFin%></td>
+                            <td>
+                                <form id="loginform"  role="form" method="post">
+                                    <input type="submit" name="btnConfirmar" class="btn btn-success" value="Enviar">
+                                </form>
+                                <%
+                                    if (request.getParameter("btnConfirmar") != null) {
+                                        reser.confirmar(id);
+                                        response.sendRedirect("homeAdministrador.jsp");
+                                    }
+                                %>
+                            </td>
+                        </tr>
+                        <% }%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+                    
+        <%       }%>
+    </body>
 </html>
