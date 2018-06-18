@@ -44,16 +44,26 @@ public class Reservaciones extends ModelBase implements Serializable {
         pst.execute();
     }
 
-    public String reservar(String id_habitacion, String email, String fechaInicial, String fechaFin) {
-        return email;
+    public void reservar(String id_habitacion, String email, String fechaInicial, String fechaFin) throws SQLException {
 //        try {
-//                    Array responseData = null;
-//        PreparedStatement pst;
-//        String sql = "INSERT INTO `reservacion` (`id_habitacion`, `id_usuario`, `fecha_hora_inicial`, `fecha_hora_fin`, `confirmada`, pin, valor) "
-//                + " VALUES (" + id_habitacion + ", '" + 1 + "', '" + fechaInicial + "', '" + fechaFin + "', 0, 1, 1);";
-//
-//        pst = this.conexion.prepareStatement(sql);
-//        pst.execute();
+        ResultSet rs;
+        Integer idHabitacion = null;
+        System.out.println("fechaInicial " + fechaInicial);
+        Array responseData = null;
+        PreparedStatement pst;
+        String sqlHabitacion = "select h.id_habitacion from habitacion h where h.numero = '" + id_habitacion + "'";
+        pst = this.conexion.prepareStatement(sqlHabitacion);
+        rs = pst.executeQuery();
+
+        while (rs.next()) {
+            idHabitacion = rs.getInt(1);
+        }
+
+        String sql = "INSERT INTO `reservacion` (`id_habitacion`, `id_usuario`, `fecha_hora_inicial`, `fecha_hora_fin`, `confirmada`, pin, valor) "
+                + " VALUES (" + idHabitacion + ", '" + 1 + "', '" + fechaInicial + "', '" + fechaFin + "', 0, 1, 1);";
+        System.out.println("sql " + sql);
+        pst = this.conexion.prepareStatement(sql);
+        pst.execute();
 //        } catch (Exception e) {
 //            return e.getMessage();
 //        }

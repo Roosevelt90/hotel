@@ -29,7 +29,7 @@ public class Habitacion extends ModelBase implements Serializable {
 
         String sql = "select h.id_habitacion, h.numero, h.valorDia from habitacion h  "
                 + "left join reservacion r on r.id_habitacion = h.id_habitacion "
-                + "where (r.fecha_hora_inicial  NOT BETWEEN '" +fechaInicial+ "' and '" + fechaFin + "')";
+                + "and  r.fecha_hora_inicial  NOT BETWEEN '" +fechaInicial+ "' and '" + fechaFin + "' group by h.id_habitacion";
         pst = this.conexion.prepareStatement(sql);
         return pst.executeQuery();
     }
